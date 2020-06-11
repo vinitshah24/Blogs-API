@@ -10,7 +10,7 @@ from .permissions import AnonPermissionOnly, IsOwnerOrReadOnly
 
 User = get_user_model()
 
-# Custom Authentication Views - Creating a new token manually
+# Custom Authentication Views
 class AuthAPIView(APIView):
     # permission_classes = [permissions.AllowAny]
     permission_classes = [AnonPermissionOnly]
@@ -29,12 +29,10 @@ class AuthAPIView(APIView):
             user_obj = qs.first()
             if user_obj.check_password(password):
                 user = user_obj
-                # Custom function to generate the token payload
                 payload = api_settings.JWT_PAYLOAD_HANDLER(user)
                 token = api_settings.JWT_ENCODE_HANDLER(payload)
-                # Controlling the response data returned after login or refresh. 
-                # Override to return a custom response - serialized representation of the User
-                response = api_settings.JWT_RESPONSE_PAYLOAD_HANDLER(token, user, request=request)
+                response = api_settings.JWT_RESPONSE_PAYLOAD_HANDLER(
+                    token, user, request=request)
                 return Response(response)
         return Response({"detail": "Invalid credentials"}, status=401)
 

@@ -12,13 +12,12 @@ HEADER = {"Content-Type": "application/json"}
 print('----------GET JWT Token----------')
 data = {'username': 'admin', 'password': 'admin'}
 req = requests.post(AUTH, data=json.dumps(data), headers=HEADER)
-print(req.status_code)
-
 reqJSON = req.json()
-API_token = reqJSON['token']
+print(reqJSON['token'])
 
 
 print('----------POST data----------')
+API_token = reqJSON['token']
 JWT_HEADER = {
     "Content-Type": "application/json",
     "Authorization": "JWT " + API_token
@@ -31,24 +30,8 @@ req = requests.post(
     headers=JWT_HEADER,
     data=json.dumps(postData)
 )
-print(req.status_code)
-
 postedJSON = req.json()
-ID = postedJSON['id']
-CONTENT = postedJSON['content']
-
-print('----------DELETE data----------')
-
-BLOG_ID = f"{BLOGS}{ID}"
-deleteData = {
-    'content': CONTENT
-}
-req = requests.delete(
-    BLOG_ID,
-    headers=JWT_HEADER,
-    data=json.dumps(deleteData)
-)
-print(req.status_code)
+print(postedJSON)
 
 
 # print('----------POST data with image----------')
@@ -81,6 +64,4 @@ req = requests.post(
     data=json.dumps(body)
 )
 refTokenJSON = req.json()
-print(req.status_code)
-#print(refTokenJSON)
-
+print(refTokenJSON)

@@ -6,7 +6,7 @@ from .views import AuthAPIView, RegisterAPIView
 
 urlpatterns = [
     path('jwt/register/', RegisterAPIView.as_view(), name='register'),
-    path('', AuthAPIView.as_view(), name='login'),  # Manual Token Generation
-    # path('jwt/', obtain_jwt_token),  # Automatic Token Generation
+    path('', AuthAPIView.as_view(), name='login'),
+    path('jwt/', obtain_jwt_token),
     path('jwt/refresh/', refresh_jwt_token),
 ]
