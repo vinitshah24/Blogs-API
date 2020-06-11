@@ -30,8 +30,8 @@ class Blogs(models.Model):
         return str(self.content)[:50]
 
     class Meta:
-        verbose_name = 'Blogs Post'
-        verbose_name_plural = 'Blogs Posts'
+        verbose_name = 'Blog Post'
+        verbose_name_plural = 'Blog Posts'
 
     # Is Owner or Read Only Permission
     @property
